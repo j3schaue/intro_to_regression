@@ -9,5 +9,6 @@ Materials include
 - slides
 - `HTML` file for labs
 - student `R` code
+- `grades_2018.csv` dataset
 - `football.csv` dataset
 - `municipalities.csv` dataset
