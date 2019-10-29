@@ -1,0 +1,264 @@
+---
+title: |
+  | Activity for Sample Class
+  | Introduction to Linear Regression
+date: "November 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE); options(scipen=999)
+```
+
+This lab is designed to give you practice describing relationships between variables. 
+We will use two datasets in this lab. 
+The first involves Dutch football clubs, their performance in different seasons, and match attendance. 
+The second involves municipalities, and we will be examining relationships between poverty, income, and opportunity.
+
+We will practice 
+
+- Plotting and describing plots of data
+- Measuring the strength of relationships between variables
+- Fitting an interpreting linear regressions
+
+
+&nbsp;
+&nbsp;
+
+# Football: Performance v. Attendance
+
+It is of interest to football clubs how on-pitch performance is related to home game attendance. 
+We will examine these relationships for Eredivisie clubs for the past five seasons. 
+
+In each question below, either the total home game attendance (`total_att`) will be the dependent variable.
+
+
+## Step 1: Read-in and Check Data
+
+As always, we must read in and check the data.
+For this, we can use the `tidyverse` library. 
+You can copy and paste this code into your `R` terminal.
+
+```{r, message=F}
+library(tidyverse) # load tidyverse functions
+
+# read in data
+fb <- read_csv("football.csv") %>%
+  filter(league == "Eredivisie") %>% # get Dutch teams
+  select(season, # select relevant columns
+         team, 
+         avg_att,
+         total_att, 
+         finish, 
+         points, 
+         goals_for, 
+         goals_against, 
+         goal_diff)
+
+# check the data
+skimr::skim(fb)
+```
+
+
+The data contain:
+
+- `season` the season year (e.g., 2015-16)
+- `team` team name
+- `avg_att` average home gameattendance
+- `total_att` total home gameattendance (for the season)
+- `finish` finish in the table (rank)
+- `points` points earned in the league
+- `goals_for` goals scored
+- `goals_against` goals conceded
+- `goal_diff` goal differential (`goals_for - goals_against`)
+
+
+**Check:** What is the average number of goals scored by a team in a seaon?
+
+**Check:** What is the average number of goals conceded by a team in a seaon?
+
+**Check:** Do your answers to these questions make sense?
+
+
+### Question 1: Points vs. Average Attendance
+
+Below are a series of visualizations and statistics that summarize the relationship between the points a club earns in a season and the total home game attendance.
+These include
+
+- a scatterplot with a linear regression line
+- the correlation and $R^2$ 
+- the regression equation  
+     
+Examine these and then describe the relationship between points and attendance. What can we say about teams that earn more or fewer points? Is this a strong relationship? 
+
+**Plot**
+```{r}
+# Plot the data with a regression line
+ggplot(fb) + 
+  geom_point(aes(points, total_att)) + 
+  geom_smooth(aes(points, total_att), 
+              method = "lm", se = FALSE)
+```
+
+**Correlation**
+```{r}
+R <- cor(fb$points, fb$total_att)
+R
+R^2
+```
+
+**Regression Equation**
+```{r, eval=F}
+lm(total_att ~ points, fb)
+```
+
+```{r, echo=F}
+coef(lm(total_att ~ points, fb))
+```
+
+
+
+### Question 2: Goals Scored vs. Total Attendance
+
+Examine the relationship between the goals scored (`goals_for`) by a team and their total home attendance for a season (`total_att`).
+Be sure to 
+
+- **Visualize** the data (e.g., with a scatterplot and regression line).
+- **Quantify** the relationship (e.g., with $R$, $R^2$, and the regression equation).
+- **Interpret** any visualizations or numerical summaries.
+
+How does the relationship compare with the one explored in the previous question? Is attendance more strongly related to points or goals scored?
+
+```{r}
+# YOUR CODE HERE
+```
+
+
+### Question 3: Goal Differential vs. Total Attendance
+
+Examine the relationship between the goal differential (goals scored - goals conceded, stored in the `goal_diff` column) by a team and their total home attendance for a season (`total_att`).
+Be sure to 
+
+- **Visualize** the data (e.g., with a scatterplot and regression line).
+- **Quantify** the relationship (e.g., with $R$, $R^2$, and the regression equation).
+- **Interpret** any visualizations or numerical summaries.
+
+How does the relationship compare with the one explored in the previous two questions? Is attendance more strongly related to points, goals scored, or goal differential?
+
+```{r}
+# YOUR CODE HERE
+```
+
+
+&nbsp;
+&nbsp;
+
+# Poverty and Education
+
+A lot of research links poverty and income to educational attainment; individuals who are better educated tend to earn more and are less likely to live in poverty.
+We will examine some of these relationships using data on municipalities. 
+Each row in this data represents a municipality, and includes measures such as the proportion of adults who completed secondary school (referred to as "high school" in the US), the proportion of households living in poverty, and the median income of households.
+
+In each question below, either the poverty rate (`poverty`) or median income (`median_income`) will be the dependent variable.
+
+
+## Step 1: Read in and Check Data
+
+As always, we must read in and check the data.
+You can copy and paste this code into your `R` terminal.
+
+```{r, message=F}
+# read in data
+dat <- read_csv("municipalities.csv") %>%
+  select(fed_spending, # select the relevant columns
+         hs_grad, 
+         persons_per_household, 
+         poverty, 
+         median_household_income)
+
+# quick check of the data
+skimr::skim(dat)
+```
+
+The data contain:
+
+- `fed_spending` total federal expenditures on social services
+- `hs_grad` percent of adults who completed secondary school
+- `median_household_income` median household income in USD 
+- `persons_per_household` average numer of people living per household in a municipality
+- `poverty` poverty rate
+
+**Check:** What is the average number of people per household?
+
+**Check:** What is the IQR of the poverty rate in the data?
+
+
+
+### Question 1: Interpretation
+
+Below are a series of visualizations and statistics that summarize the relationship between median household income in a municipality versus the average number of people living in a household. 
+These include
+
+- a scatterplot with a linear regression line
+- the correlation and $R^2$ 
+- the regression equation  
+     
+Examine these and then describe the relationship between household size and income. What can we say about larger or smaller households? Is this a strong relationship? 
+
+**Plot**
+```{r}
+# Plot the data with a regression line
+ggplot(dat) + 
+  geom_point(aes(persons_per_household, median_household_income)) + 
+  geom_smooth(aes(persons_per_household, median_household_income), 
+              method = "lm", se = FALSE)
+```
+
+**Correlation**
+```{r}
+R <- cor(dat$median_household_income, dat$persons_per_household)
+R
+R^2
+```
+
+**Regression Equation**
+```{r, eval=F}
+lm(median_household_income ~ persons_per_household, dat)
+```
+
+```{r, echo=F}
+coef(lm(median_household_income ~ persons_per_household, dat))
+```
+
+
+
+### Question 2: Poverty and Education
+
+Examine the relationship between poverty rate (the `poverty` column) and educational attainment (`hs_grad`) in the data. 
+Do municipalities with more secondary school graduates have a higher or lower poverty rate? How strong is this relationship?
+
+Be sure to 
+
+- **Visualize** the data (e.g., with a scatterplot and regression line).
+- **Quantify** the relationship (e.g., with $R$, $R^2$, and the regression equation).
+- **Interpret** any visualizations or numerical summaries.
+
+```{r}
+# YOUR CODE HERE
+```
+
+### Question 3: Income and Education
+
+
+Examine the relationship between income (the `median_household_income` column) and educational attainment (`hs_grad`) in the data. 
+Do municipalities with more secondary school graduates have a higher or lower incomes? How strong is this relationship?
+
+Be sure to 
+
+- **Visualize** the data (e.g., with a scatterplot and regression line).
+- **Quantify** the relationship (e.g., with $R$, $R^2$, and the regression equation).
+- **Interpret** any visualizations or numerical summaries.
+
+```{r}
+# YOUR CODE HERE
+```
