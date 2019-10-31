@@ -46,20 +46,25 @@ summary(lm(grade ~ pretest, grades))
 
 
 ###---ALL THREE AT ONCE
-r <- round(cor(grades$pretest, grades$grade)^2, 2)
+# r^2 formatted for plot
+r <- round(cor(grades$pretest, grades$grade)^2, 2) 
 r2_text = bquote(R^2 == .(r))
+
+# regression ceofficients formatted for plot
 lin_mod <- lm(grade ~ pretest, grades)
 b0 <- coef(lin_mod)[1]
 b1 <- coef(lin_mod)[2]
+
+# plot data
 ggplot(grades) + 
-  geom_point(aes(pretest, grade)) + 
-  geom_smooth(aes(pretest, grade), 
+  geom_point(aes(pretest, grade)) + # points in scatterplot
+  geom_smooth(aes(pretest, grade), # regression line
               method = "lm", 
               se = FALSE) + 
-  annotate("text", 
+  annotate("text", # add r^2 value to plot
            x = 80, y = 40, 
            label = r2_text) +
-  annotate("text", 
+  annotate("text", # add regression equation to plot
            x = 80, y = 30, 
            label = paste("Grade =", 
                          round(b0, 2), "+", 
@@ -101,8 +106,8 @@ ggplot(fb) +
               method = "lm", se = FALSE)
 
 # Correlation
-R <- cor(fb$points, fb$total_att)
-R; R^2
+R_pts_att <- cor(fb$points, fb$total_att)
+R_pts_att; R_pts_att^2
 
 # Regression
 summary(lm(total_att ~ points, fb))
@@ -152,8 +157,8 @@ ggplot(dat) +
               method = "lm", se = FALSE)
 
 # Correlation
-R <- cor(dat$median_household_income, dat$persons_per_household)
-R; R^2
+R_inc_pph <- cor(dat$median_household_income, dat$persons_per_household)
+R_inc_pph; R_inc_pph^2
 
 # Regression
 summary(lm(median_household_income ~ persons_per_household, dat))
