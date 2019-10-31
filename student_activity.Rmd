@@ -26,6 +26,8 @@ We will practice
 &nbsp;
 &nbsp;
 
+
+
 # Dataset 1: Football: Performance v. Attendance
 
 It is of interest to football clubs how on-pitch performance is related to home game attendance. 
@@ -103,16 +105,15 @@ ggplot(fb) +
 
 **Correlation**
 ```{r}
-R <- cor(fb$points, fb$total_att)
-R
-R^2
+R_pts_att <- cor(fb$points, fb$total_att)
+R_pts_att
+R_pts_att^2
 ```
 
 **Regression Equation**
 ```{r}
 summary(lm(total_att ~ points, fb))
 ```
-
 
 
 
@@ -130,6 +131,7 @@ How does the relationship compare with the one explored in the previous question
 ```{r}
 # YOUR CODE HERE
 ```
+
 
 
 ### Question 1C: Goal Differential vs. Total Attendance
@@ -151,6 +153,7 @@ How does the relationship compare with the one explored in the previous two ques
 &nbsp;
 &nbsp;
 &nbsp;
+
 
 # Dataset 2: Poverty and Education
 
@@ -215,9 +218,9 @@ ggplot(dat) +
 
 **Correlation**
 ```{r}
-R <- cor(dat$median_household_income, dat$persons_per_household)
-R
-R^2
+R_inc_pph <- cor(dat$median_household_income, dat$persons_per_household)
+R_inc_pph 
+R_inc_pph^2
 ```
 
 **Regression Equation**
@@ -242,8 +245,9 @@ Be sure to
 # YOUR CODE HERE
 ```
 
-### Question 2C: Income and Education
 
+
+### Question 2C: Income and Education
 
 Examine the relationship between income (the `median_household_income` column) and educational attainment (`hs_grad`) in the data. 
 Do municipalities with more secondary school graduates have a higher or lower incomes? How strong is this relationship?
