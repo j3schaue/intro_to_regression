@@ -42,7 +42,7 @@ ggplot(grades) +
 cor(grades$pretest, grades$grade)
 
 ###---Regression line
-lm(grade ~ pretest, grades)
+summary(lm(grade ~ pretest, grades))
 
 
 ###---ALL THREE AT ONCE
@@ -105,7 +105,7 @@ R <- cor(fb$points, fb$total_att)
 R; R^2
 
 # Regression
-lm(total_att ~ points, fb)
+summary(lm(total_att ~ points, fb))
 
 
 ###--------------
@@ -156,7 +156,7 @@ R <- cor(dat$median_household_income, dat$persons_per_household)
 R; R^2
 
 # Regression
-lm(median_household_income ~ persons_per_household, dat)
+summary(lm(median_household_income ~ persons_per_household, dat))
 
 
 

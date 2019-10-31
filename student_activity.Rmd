@@ -24,8 +24,9 @@ We will practice
 
 &nbsp;
 &nbsp;
+&nbsp;
 
-# Football: Performance v. Attendance
+# Dataset 1: Football: Performance v. Attendance
 
 It is of interest to football clubs how on-pitch performance is related to home game attendance. 
 We will examine these relationships for Eredivisie clubs for the past five seasons. 
@@ -80,7 +81,7 @@ The data contain:
 **Check:** Do your answers to these questions make sense?
 
 
-### Question 1: Points vs. Average Attendance
+### Question 1A: Points vs. Average Attendance
 
 Below are a series of visualizations and statistics that summarize the relationship between the points a club earns in a season and the total home game attendance.
 These include
@@ -108,17 +109,14 @@ R^2
 ```
 
 **Regression Equation**
-```{r, eval=F}
-lm(total_att ~ points, fb)
-```
-
-```{r, echo=F}
-coef(lm(total_att ~ points, fb))
+```{r}
+summary(lm(total_att ~ points, fb))
 ```
 
 
 
-### Question 2: Goals Scored vs. Total Attendance
+
+### Question 1B: Goals Scored vs. Total Attendance
 
 Examine the relationship between the goals scored (`goals_for`) by a team and their total home attendance for a season (`total_att`).
 Be sure to 
@@ -134,7 +132,7 @@ How does the relationship compare with the one explored in the previous question
 ```
 
 
-### Question 3: Goal Differential vs. Total Attendance
+### Question 1C: Goal Differential vs. Total Attendance
 
 Examine the relationship between the goal differential (goals scored - goals conceded, stored in the `goal_diff` column) by a team and their total home attendance for a season (`total_att`).
 Be sure to 
@@ -152,8 +150,9 @@ How does the relationship compare with the one explored in the previous two ques
 
 &nbsp;
 &nbsp;
+&nbsp;
 
-# Poverty and Education
+# Dataset 2: Poverty and Education
 
 A lot of research links poverty and income to educational attainment; individuals who are better educated tend to earn more and are less likely to live in poverty.
 We will examine some of these relationships using data on municipalities. 
@@ -194,7 +193,7 @@ The data contain:
 
 
 
-### Question 1: Interpretation
+### Question 2A: Interpretation
 
 Below are a series of visualizations and statistics that summarize the relationship between median household income in a municipality versus the average number of people living in a household. 
 These include
@@ -222,17 +221,13 @@ R^2
 ```
 
 **Regression Equation**
-```{r, eval=F}
-lm(median_household_income ~ persons_per_household, dat)
-```
-
-```{r, echo=F}
-coef(lm(median_household_income ~ persons_per_household, dat))
+```{r}
+summary(lm(median_household_income ~ persons_per_household, dat))
 ```
 
 
 
-### Question 2: Poverty and Education
+### Question 2B: Poverty and Education
 
 Examine the relationship between poverty rate (the `poverty` column) and educational attainment (`hs_grad`) in the data. 
 Do municipalities with more secondary school graduates have a higher or lower poverty rate? How strong is this relationship?
@@ -247,7 +242,7 @@ Be sure to
 # YOUR CODE HERE
 ```
 
-### Question 3: Income and Education
+### Question 2C: Income and Education
 
 
 Examine the relationship between income (the `median_household_income` column) and educational attainment (`hs_grad`) in the data. 

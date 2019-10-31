@@ -387,9 +387,9 @@ Introduction to Linear Regression</div></h1>
 <li>Measuring the strength of relationships between variables</li>
 <li>Fitting an interpreting linear regressions</li>
 </ul>
-<p>   </p>
-<div id="football-performance-v.-attendance" class="section level1">
-<h1>Football: Performance v. Attendance</h1>
+<p>     </p>
+<div id="dataset-1-football-performance-v.-attendance" class="section level1">
+<h1>Dataset 1: Football: Performance v. Attendance</h1>
 <p>It is of interest to football clubs how on-pitch performance is related to home game attendance. We will examine these relationships for Eredivisie clubs for the past five seasons.</p>
 <p>In each question below, either the total home game attendance (<code>total_att</code>) will be the dependent variable.</p>
 <div id="step-1-read-in-and-check-data" class="section level2">
@@ -416,12 +416,12 @@ skimr::skim(fb)</code></pre>
 ##  n obs: 270 
 ##  n variables: 9 
 ## 
-## ── Variable type:character ────────────────────────────────────────────────────
+## ── Variable type:character ──────────────────────────────────────────────────────────────────────────────────────
 ##  variable missing complete   n min max empty n_unique
 ##    season       0      270 270   7   7     0        5
 ##      team       0      270 270   8  17     0       25
 ## 
-## ── Variable type:numeric ──────────────────────────────────────────────────────
+## ── Variable type:numeric ────────────────────────────────────────────────────────────────────────────────────────
 ##       variable missing complete   n      mean        sd    p0    p25
 ##        avg_att       0      270 270  19737.73  14045.5   3512  11343
 ##         finish       0      270 270      9.5       5.2      1      5
@@ -453,8 +453,8 @@ skimr::skim(fb)</code></pre>
 <p><strong>Check:</strong> What is the average number of goals scored by a team in a seaon?</p>
 <p><strong>Check:</strong> What is the average number of goals conceded by a team in a seaon?</p>
 <p><strong>Check:</strong> Do your answers to these questions make sense?</p>
-<div id="question-1-points-vs.average-attendance" class="section level3">
-<h3>Question 1: Points vs. Average Attendance</h3>
+<div id="question-1a-points-vs.average-attendance" class="section level3">
+<h3>Question 1A: Points vs. Average Attendance</h3>
 <p>Below are a series of visualizations and statistics that summarize the relationship between the points a club earns in a season and the total home game attendance. These include</p>
 <ul>
 <li>a scatterplot with a linear regression line</li>
@@ -476,12 +476,28 @@ R</code></pre>
 <pre class="r"><code>R^2</code></pre>
 <pre><code>## [1] 0.3616133</code></pre>
 <p><strong>Regression Equation</strong></p>
-<pre class="r"><code>lm(total_att ~ points, fb)</code></pre>
-<pre><code>## (Intercept)      points 
-##   83769.779    7613.497</code></pre>
+<pre class="r"><code>summary(lm(total_att ~ points, fb))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = total_att ~ points, data = fb)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -317584 -113177  -30168   74335  515166 
+## 
+## Coefficients:
+##             Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)  83769.8    19965.0   4.196             0.000037 ***
+## points        7613.5      617.9  12.321 &lt; 0.0000000000000002 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 173300 on 268 degrees of freedom
+## Multiple R-squared:  0.3616, Adjusted R-squared:  0.3592 
+## F-statistic: 151.8 on 1 and 268 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 </div>
-<div id="question-2-goals-scored-vs.total-attendance" class="section level3">
-<h3>Question 2: Goals Scored vs. Total Attendance</h3>
+<div id="question-1b-goals-scored-vs.total-attendance" class="section level3">
+<h3>Question 1B: Goals Scored vs. Total Attendance</h3>
 <p>Examine the relationship between the goals scored (<code>goals_for</code>) by a team and their total home attendance for a season (<code>total_att</code>). Be sure to</p>
 <ul>
 <li><strong>Visualize</strong> the data (e.g., with a scatterplot and regression line).</li>
@@ -491,8 +507,8 @@ R</code></pre>
 <p>How does the relationship compare with the one explored in the previous question? Is attendance more strongly related to points or goals scored?</p>
 <pre class="r"><code># YOUR CODE HERE</code></pre>
 </div>
-<div id="question-3-goal-differential-vs.total-attendance" class="section level3">
-<h3>Question 3: Goal Differential vs. Total Attendance</h3>
+<div id="question-1c-goal-differential-vs.total-attendance" class="section level3">
+<h3>Question 1C: Goal Differential vs. Total Attendance</h3>
 <p>Examine the relationship between the goal differential (goals scored - goals conceded, stored in the <code>goal_diff</code> column) by a team and their total home attendance for a season (<code>total_att</code>). Be sure to</p>
 <ul>
 <li><strong>Visualize</strong> the data (e.g., with a scatterplot and regression line).</li>
@@ -501,12 +517,12 @@ R</code></pre>
 </ul>
 <p>How does the relationship compare with the one explored in the previous two questions? Is attendance more strongly related to points, goals scored, or goal differential?</p>
 <pre class="r"><code># YOUR CODE HERE</code></pre>
-<p>   </p>
+<p>     </p>
 </div>
 </div>
 </div>
-<div id="poverty-and-education" class="section level1">
-<h1>Poverty and Education</h1>
+<div id="dataset-2-poverty-and-education" class="section level1">
+<h1>Dataset 2: Poverty and Education</h1>
 <p>A lot of research links poverty and income to educational attainment; individuals who are better educated tend to earn more and are less likely to live in poverty. We will examine some of these relationships using data on municipalities. Each row in this data represents a municipality, and includes measures such as the proportion of adults who completed secondary school (referred to as “high school” in the US), the proportion of households living in poverty, and the median income of households.</p>
 <p>In each question below, either the poverty rate (<code>poverty</code>) or median income (<code>median_income</code>) will be the dependent variable.</p>
 <div id="step-1-read-in-and-check-data-1" class="section level2">
@@ -526,7 +542,7 @@ skimr::skim(dat)</code></pre>
 ##  n obs: 5999 
 ##  n variables: 5 
 ## 
-## ── Variable type:numeric ──────────────────────────────────────────────────────
+## ── Variable type:numeric ────────────────────────────────────────────────────────────────────────────────────────
 ##                 variable missing complete    n      mean         sd
 ##             fed_spending       1     5998 5999 753974.98 2345720.02
 ##                  hs_grad       0     5999 5999     83.31       7.1 
@@ -549,8 +565,8 @@ skimr::skim(dat)</code></pre>
 </ul>
 <p><strong>Check:</strong> What is the average number of people per household?</p>
 <p><strong>Check:</strong> What is the IQR of the poverty rate in the data?</p>
-<div id="question-1-interpretation" class="section level3">
-<h3>Question 1: Interpretation</h3>
+<div id="question-2a-interpretation" class="section level3">
+<h3>Question 2A: Interpretation</h3>
 <p>Below are a series of visualizations and statistics that summarize the relationship between median household income in a municipality versus the average number of people living in a household. These include</p>
 <ul>
 <li>a scatterplot with a linear regression line</li>
@@ -572,12 +588,29 @@ R</code></pre>
 <pre class="r"><code>R^2</code></pre>
 <pre><code>## [1] 0.03061619</code></pre>
 <p><strong>Regression Equation</strong></p>
-<pre class="r"><code>lm(median_household_income ~ persons_per_household, dat)</code></pre>
-<pre><code>##           (Intercept) persons_per_household 
-##              22057.21               8516.67</code></pre>
+<pre class="r"><code>summary(lm(median_household_income ~ persons_per_household, dat))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = median_household_income ~ persons_per_household, 
+##     data = dat)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -29221  -5839   -625   4876  71571 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value            Pr(&gt;|t|)    
+## (Intercept)            22057.2     1548.5   14.24 &lt;0.0000000000000002 ***
+## persons_per_household   8516.7      618.8   13.76 &lt;0.0000000000000002 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 10280 on 5997 degrees of freedom
+## Multiple R-squared:  0.03062,    Adjusted R-squared:  0.03045 
+## F-statistic: 189.4 on 1 and 5997 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 </div>
-<div id="question-2-poverty-and-education" class="section level3">
-<h3>Question 2: Poverty and Education</h3>
+<div id="question-2b-poverty-and-education" class="section level3">
+<h3>Question 2B: Poverty and Education</h3>
 <p>Examine the relationship between poverty rate (the <code>poverty</code> column) and educational attainment (<code>hs_grad</code>) in the data. Do municipalities with more secondary school graduates have a higher or lower poverty rate? How strong is this relationship?</p>
 <p>Be sure to</p>
 <ul>
@@ -587,8 +620,8 @@ R</code></pre>
 </ul>
 <pre class="r"><code># YOUR CODE HERE</code></pre>
 </div>
-<div id="question-3-income-and-education" class="section level3">
-<h3>Question 3: Income and Education</h3>
+<div id="question-2c-income-and-education" class="section level3">
+<h3>Question 2C: Income and Education</h3>
 <p>Examine the relationship between income (the <code>median_household_income</code> column) and educational attainment (<code>hs_grad</code>) in the data. Do municipalities with more secondary school graduates have a higher or lower incomes? How strong is this relationship?</p>
 <p>Be sure to</p>
 <ul>
